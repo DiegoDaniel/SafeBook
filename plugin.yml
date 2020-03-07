@@ -1,0 +1,6 @@
+name: safeBook
+main: me.eridamusLoL.safeBook.Main
+version: 1.0
+author: EridamusLoL
+api-version: 1.13
+commands:
