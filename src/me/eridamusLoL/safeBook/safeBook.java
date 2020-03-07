@@ -29,19 +29,23 @@ public class safeBook implements Listener{
 			int z = block.getZ();
 			String blockXYZ = Integer.toString(x).concat(Integer.toString(y)).concat(Integer.toString(z));
 			System.out.println("STRING XYZ: "+ blockXYZ);
-			ConfigurationSection sec = main.getConfig().getConfigurationSection("safeBooksXYZ");
-	        if(sec.contains(blockXYZ)) {
-	        	sec.set(blockXYZ, null);
-	        	main.saveConfig();
-	        	player.sendMessage("This book is not protected anymore.");
-	        }else{
-	        	sec.set(blockXYZ + ".x", x);
-	        	sec.set(blockXYZ + ".y", y);
-	        	sec.set(blockXYZ + ".z", z);
-	        	main.saveConfig();
-	        	player.sendMessage("This book is now protected.");
-	        }
-	        
+			
+			if(main.getConfig().toString().length() > 0 && main.getConfig().getConfigurationSection("safeBooksXYZ") != null) {
+				ConfigurationSection sec = main.getConfig().getConfigurationSection("safeBooksXYZ");
+		        if(null != sec && sec.contains(blockXYZ)) {
+		        	sec.set(blockXYZ, null);
+		        	main.saveConfig();
+		        	player.sendMessage("This book is not protected anymore.");
+		        }else{
+		        	sec.set(blockXYZ + ".x", x);
+		        	sec.set(blockXYZ + ".y", y);
+		        	sec.set(blockXYZ + ".z", z);
+		        	main.saveConfig();
+		        	player.sendMessage("This book is now protected.");
+		        }
+			}else {
+				player.sendMessage("safeBook's config file is broken. Please re-install plugin to fix it.");
+			}
 		}
 	}
 	
